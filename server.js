@@ -12,20 +12,12 @@ if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
 
-mongoose.connect(
-  process.env.MONGODB_URI ||
-    "mongodb://user:password1@ds335957.mlab.com:35957/heroku_3qt9zmhd",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost/reactbooks", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 app.use(routes);
-
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "./client/build/index.html"));
-});
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> API server now on port ${PORT}!`);
